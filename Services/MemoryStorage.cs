@@ -27,4 +27,5 @@ namespace VoiceTexterBot.Services
             return newSession;
 
         }
+    }
 }
