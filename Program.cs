@@ -1,4 +1,4 @@
-﻿using Telegram.Bot.Polling;
+﻿
 
 
 namespace VoiceTexterBot
@@ -7,7 +7,7 @@ namespace VoiceTexterBot
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            
         }
     }
 }
