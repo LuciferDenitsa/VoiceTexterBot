@@ -1,9 +1,10 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
+using VoiceTexterBot.Configuration;
 
 namespace VoiceTexterBot.Controllers
 {
-    internal class VoiceMessageController
+    public class VoiceMessageController
     {
         private readonly ITelegramBotClient _telegramClient;
 

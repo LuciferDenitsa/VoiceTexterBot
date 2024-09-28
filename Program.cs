@@ -42,7 +42,7 @@ namespace VoiceTexterBot
             services.AddTransient<InlineKeyboardController>();
 
             // Регистрируем объект TelegramBotClient c токеном подключения
-            services.AddSingleton<ITelegramBotClient>(provider => new TelegramBotClient("7651176116:AAEVdcAwTUdED8hL0nZhpVs8vHdBBepAxV8"));
+            services.AddSingleton<ITelegramBotClient>(provider => new TelegramBotClient(appSettings.BotToken));
             // Регистрируем постоянно активный сервис бота
             services.AddHostedService<Bot>();
         }
