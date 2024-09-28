@@ -54,11 +54,11 @@ namespace VoiceTexterBot
             return new AppSettings()
             {
                 DownloadsFolder = "C:\\Users\\ryche\\Downloads",
-                BotToken = "7651176116:AAEVdcAwTUdED8hL0nZhpVs8vHdBBepAxV8",
+                BotToken = "7747384993:AAEuIziZ66Dw-1IkJmqKbVDPKD-_zcQFJX0",
                 AudioFileName = "audio",
                 InputAudioFormat = "ogg",
                 OutputAudioFormat = "wav",
-
+                InputAudioBitrate = 48000,
             };
         }
     }
