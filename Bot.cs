@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using Microsoft.Extensions.Hosting;
+using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -6,18 +7,29 @@ using Telegram.Bot.Types.Enums;
 
 namespace VoiceTexterBot
 {
-    class Bot
+    internal class Bot : BackgroundService
     {
         private ITelegramBotClient _telegramClient;
- 
+
         public Bot(ITelegramBotClient telegramClient)
         {
             _telegramClient = telegramClient;
         }
 
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            _telegramClient.StartReceiving(
+                HandleUpdateAsync,
+                HandleErrorAsync,
+                new ReceiverOptions() { AllowedUpdates = { } }, // Здесь выбираем, какие обновления хотим получать. В данном случае разрешены все
+                cancellationToken: stoppingToken);
+
+            Console.WriteLine("Бот запущен");
+        }
+
         async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            //  Обрабатываем нажатия на кнопки  из Telegram Bot API
+            //  Обрабатываем нажатия на кнопки  из Telegram Bot API: https://core.telegram.org/bots/api#callbackquery
             if (update.Type == UpdateType.CallbackQuery)
             {
                 await _telegramClient.SendTextMessageAsync(update.Message.Chat.Id, "Вы нажали кнопку", cancellationToken: cancellationToken);
@@ -31,6 +43,7 @@ namespace VoiceTexterBot
                 return;
             }
         }
+
         Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
             // Задаем сообщение об ошибке в зависимости от того, какая именно ошибка произошла
@@ -50,6 +63,5 @@ namespace VoiceTexterBot
 
             return Task.CompletedTask;
         }
-
     }
 }
